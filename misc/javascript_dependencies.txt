@@ -1,0 +1,14 @@
+angular.min.js  v1.0.5
+http://angularjs.org
+
+bootstrap.min.js 2.3.0
+http://twitter.github.io/bootstrap/
+
+jquery.js  v1.9.1 
+jquery.org
+
+modernizr.custom.js 2.6.2
+http://modernizr.com
+
+toastr.js 1.0.2
+http://codeseven.github.io/toastr/
