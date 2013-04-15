@@ -1,0 +1,46 @@
+CACHE MANIFEST
+ 
+# Build $today.date("dd/MM/yyyy HH:mm")
+ 
+CACHE:
+cssext/bootstrap-responsive.min.css
+cssext/bootstrap.min.css
+cssext/toastr.css
+
+cssin/custom.css
+
+img/glyphicons-halflings-white.png
+img/glyphicons-halflings.png
+
+jsext/angular.min.js
+jsext/bootstrap.min.js
+jsext/jquery.js
+jsext/modernizr.custom.js
+jsext/toastr.js
+
+jsin/cacheApp.js
+jsin/datastore.js
+jsin/offline.js
+
+partials/inprogress.html
+partials/welcome.html
+
+gen/js/mainctrl.js
+
+gen/partials/footer.html
+gen/partials/header.html
+
+#foreach ( $entityClass in $selectedEntities )
+gen/jsmodules/${entityClass.name.toLowerCase()}/${entityClass.name.toLowerCase()}ctrl.js
+gen/jsmodules/${entityClass.name.toLowerCase()}/${entityClass.name.toLowerCase()}srv.js
+#end 
+
+#foreach ( $entityClass in $selectedEntities )
+gen/pages/${entityClass.name.toLowerCase()}/create.html
+gen/pages/${entityClass.name.toLowerCase()}/edit.html
+gen/pages/${entityClass.name.toLowerCase()}/list.html
+#end 
+
+NETWORK:
+http://*
+https://*

@@ -1,0 +1,29 @@
+
+
+<div id="${beanClass.name.toLowerCase()}List" data-ng-controller="${beanClass.name}ListCtrl">
+ 
+    <h2>${beanClass.name}s list</h2>
+
+	<table class="table table-striped colortable">
+	  <thead>
+	    <tr>
+			#foreach( $field in $beanClass.attributes )
+		      <th>${field.name}</th>
+			#end
+	    </tr>
+	  </thead>
+	  <tbody>
+        <tr data-ng-repeat="(key, value) in ${beanClass.name.toLowerCase()}s">
+			#foreach( $field in $beanClass.attributes )
+	      		<td>
+	      			<a href="${SHARP}/${beanClass.name.toLowerCase()}/{{key}}">{{value.${field.name}}}</a>
+	      		</td>
+		  	#end
+	    </tr>
+	  </tbody>
+	</table>
+ 
+ 	<br />
+ 	<button data-ng-click="openCreate${beanClass.name}Page()">New</button>
+ 
+</div>

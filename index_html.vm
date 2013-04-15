@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html manifest="offline.appcache" lang="en" data-ng-app="bookStore">
+<head>
+	<title>Book Store</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Html5 OffLine App">
+	<meta name="author" content="asic">
+	<meta name="site" content="http://techasite.blogspot.fr/">
+	
+	<link href="cssext/bootstrap.min.css" rel="stylesheet" />
+	<link href="cssext/bootstrap-responsive.min.css" rel="stylesheet" />
+	<link href="cssext/toastr.css" rel="stylesheet"/>
+	
+	<link href="cssin/custom.css" rel="stylesheet"/>
+	
+	<script src="jsext/jquery.js"></script>
+	<script src="jsext/bootstrap.min.js"></script>
+	<script src="jsext/angular.min.js"></script>
+	<script src="jsext/modernizr.custom.js"></script>
+	<script src="jsext/toastr.js"></script>
+	
+	<script src="jsin/offline.js"></script>
+	<script src="jsin/cacheApp.js"></script>
+	<script src="jsin/datastore.js"></script>
+
+	<script src="gen/js/mainctrl.js"></script>
+
+#foreach ( $entityClass in $selectedEntities )
+	<script src="gen/jsmodules/${entityClass.name.toLowerCase()}/${entityClass.name.toLowerCase()}ctrl.js"></script>
+	<script src="gen/jsmodules/${entityClass.name.toLowerCase()}/${entityClass.name.toLowerCase()}srv.js"></script>
+#end 
+
+</head>
+<body data-ng-controller="MainCtrl">
+	<ng-include src="'gen/partials/header.html'"></ng-include>
+	<br />
+	<div class="container" data-ng-view></div>
+	<ng-include src="'gen/partials/footer.html'"></ng-include>
+</body>
+</html>
+

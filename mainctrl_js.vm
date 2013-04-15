@@ -1,0 +1,74 @@
+// Global module
+var bookStore = angular.module('bookStore', ['bookStore.main', 
+#foreach ( $entityClass in $selectedEntities )
+    'bookStore.${entityClass.name.toLowerCase()}', 
+#end
+    'bookStore.storage.services']);
+
+// Add usefull fct into rootScope
+bookStore.run(function(${DOLLAR}rootScope, ${DOLLAR}templateCache, ${DOLLAR}http, ApiStorage) {
+
+	// Force template cache to allow offline for all partials
+	${DOLLAR}http.get('gen/partials/footer.html', {cache:${DOLLAR}templateCache});
+    ${DOLLAR}http.get('gen/partials/header.html', {cache:${DOLLAR}templateCache});
+    ${DOLLAR}http.get('partials/inprogress.html', {cache:${DOLLAR}templateCache});
+    ${DOLLAR}http.get('partials/welcome.html', {cache:${DOLLAR}templateCache});
+
+#foreach ( $entityClass in $selectedEntities )
+    ${DOLLAR}http.get('gen/pages/${entityClass.name.toLowerCase()}/create.html', {cache:${DOLLAR}templateCache});
+    ${DOLLAR}http.get('gen/pages/${entityClass.name.toLowerCase()}/edit.html', {cache:${DOLLAR}templateCache});
+    ${DOLLAR}http.get('gen/pages/${entityClass.name.toLowerCase()}/list.html', {cache:${DOLLAR}templateCache});
+    
+#end
+
+	// Logger
+	${DOLLAR}rootScope.logMe = function (logentry) {
+		console.log(logentry);
+	};
+
+	// Detect html5 compliance with Modernizr
+	${DOLLAR}rootScope.localstorageEnable = Modernizr.localstorage;
+	${DOLLAR}rootScope.offlineEnable = Modernizr.applicationcache;
+	${DOLLAR}rootScope.logMe("localstorage : " + ${DOLLAR}rootScope.localstorageEnable);
+	${DOLLAR}rootScope.logMe("offline : " + ${DOLLAR}rootScope.offlineEnable);
+	
+	if ((${DOLLAR}rootScope.offlineEnable == false) || (${DOLLAR}rootScope.localstorageEnable == false)) {
+		toastr.error("Your browser isn't applicationCache compliant !");
+	} else {
+		// localstorage conf and init
+		${DOLLAR}rootScope.dataStoreKey = "dataStoreKey";
+		${DOLLAR}rootScope.dataStore = {};
+		ApiStorage.init();
+	}
+	
+	// Configuration toastr
+	toastr.options.positionClass = 'toast-bottom-right';
+});
+
+// Welcome module
+var bookStoremain = angular.module('bookStore.main', [], function(${DOLLAR}routeProvider, ${DOLLAR}locationProvider) {
+	
+	// Declare welcome route
+	${DOLLAR}routeProvider.when('/welcome', {
+		templateUrl : 'partials/welcome.html',
+	    controller: 'MainCtrl'
+	});
+
+	// Declare futur route
+	${DOLLAR}routeProvider.when('/inprogress', {
+		templateUrl : 'main/inprogress.html',
+	    controller: 'MainCtrl'
+	});
+
+	// Declare default route
+	${DOLLAR}routeProvider.otherwise({
+		redirectTo : '/welcome',
+	    controller: 'MainCtrl'
+	});
+});
+
+// Main controller
+bookStoremain.controller('MainCtrl', ['${DOLLAR}scope', '${DOLLAR}location', '${DOLLAR}routeParams', function (${DOLLAR}scope, ${DOLLAR}location, ${DOLLAR}routeParams) {
+    var self = this;
+}]);
+

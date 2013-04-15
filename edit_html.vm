@@ -1,0 +1,23 @@
+
+<div id="${beanClass.name.toLowerCase()}Edit" data-ng-controller="${beanClass.name}DetailCtrl">
+ 
+    <h2>${beanClass.name} Edit</h2>
+    
+ 	<form class="form-horizontal">
+ 	
+	#foreach( $field in $beanClass.attributes )
+ 		<div class="control-group">
+			<label class="control-label" for="${field.name}">${field.name}</label>
+			<div class="controls">
+				<input type="text" id="${field.name}" data-ng-model="one${beanClass.name.toLowerCase()}.${field.name}" />
+			</div>
+		</div>
+  	#end
+
+	</form>
+ 	<br />
+    <button data-ng-click="update${beanClass.name}()">Save</button>
+    <button data-ng-click="remove${beanClass.name}()">Remove</button>
+	<button data-ng-click="openList${beanClass.name}Page()">Return to list</button>
+ 
+</div>

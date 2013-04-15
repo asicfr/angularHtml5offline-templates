@@ -1,0 +1,26 @@
+
+// ${beanClass.name} services
+var bookServicesModule = angular.module('bookStore.${beanClass.name.toLowerCase()}.services', ['bookStore.storage.services']).factory('Api${beanClass.name}', function(${DOLLAR}rootScope, ${DOLLAR}http, ApiStorage) {
+    return {
+        get: function (id) {
+    		${DOLLAR}rootScope.logMe("${beanClass.name.toLowerCase()} srv get " + id);
+    		return ApiStorage.read("${beanClass.name.toLowerCase()}", id);
+        },
+        search: function () {
+    		${DOLLAR}rootScope.logMe("${beanClass.name.toLowerCase()} srv search");
+    		return ApiStorage.search("${beanClass.name.toLowerCase()}");
+        },
+        create: function (${beanClass.name.toLowerCase()}) {
+    		${DOLLAR}rootScope.logMe("${beanClass.name.toLowerCase()} srv create");
+    		return ApiStorage.create("${beanClass.name.toLowerCase()}", ${beanClass.name.toLowerCase()});
+    	},
+        update: function (id, ${beanClass.name.toLowerCase()}) {
+    		${DOLLAR}rootScope.logMe("${beanClass.name.toLowerCase()} srv update");
+    		return ApiStorage.update("${beanClass.name.toLowerCase()}", id, ${beanClass.name.toLowerCase()});
+    	},
+        remove: function (id) {
+    		${DOLLAR}rootScope.logMe("${beanClass.name.toLowerCase()} srv remove " + id);
+    		return ApiStorage.remove("${beanClass.name.toLowerCase()}", id);
+        }
+    };
+});

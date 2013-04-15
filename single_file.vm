@@ -1,0 +1,19 @@
+/*
+ * Service class 
+ * Created on $today.date ( Time $today.time )
+ * Target Name     : "$target.targetName"
+ * Target Template : "$target.template"
+ * Target Entity   : "$target.entityName"
+ */
+
+package ${target.javaPackageFromFolder($project.srcFolder)};
+
+//--- Selected entities
+#foreach ( $entityClass in $selectedEntities )
+//----------------------------------------------------
+// $entityClass.name ( package $entityClass.package) : Table = $entityClass.sqlTable
+// KEY FIELDS :
+#foreach ( $field in $entityClass.keyAttributes )
+//    . field  :  $field.name ( $field.type) - $field.databaseName 
+#end
+#end 

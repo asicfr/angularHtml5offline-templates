@@ -1,0 +1,100 @@
+
+// ${beanClass.name.toLowerCase()} module add into global module (see mainctrl.js)
+var bookStore${beanClass.name.toLowerCase()} = angular.module('bookStore.${beanClass.name.toLowerCase()}', ['bookStore.${beanClass.name.toLowerCase()}.services'], function(${DOLLAR}routeProvider, ${DOLLAR}locationProvider) {
+
+	// ${beanClass.name.toLowerCase()} list
+	${DOLLAR}routeProvider.when('/${beanClass.name.toLowerCase()}', {
+		templateUrl: 'gen/pages/${beanClass.name.toLowerCase()}/list.html'
+	});
+
+	// ${beanClass.name.toLowerCase()} create
+	${DOLLAR}routeProvider.when('/${beanClass.name.toLowerCase()}/create', {
+		templateUrl: 'gen/pages/${beanClass.name.toLowerCase()}/create.html'
+	});
+
+	// ${beanClass.name.toLowerCase()} edit
+	${DOLLAR}routeProvider.when('/${beanClass.name.toLowerCase()}/:id', {
+		templateUrl: 'gen/pages/${beanClass.name.toLowerCase()}/edit.html'
+	});
+
+});
+
+// ${beanClass.name.toLowerCase()} Controllers
+bookStore${beanClass.name.toLowerCase()}.controller('${beanClass.name}ListCtrl', ['${DOLLAR}scope', '${DOLLAR}location', '${DOLLAR}routeParams', '${DOLLAR}rootScope', 'Api${beanClass.name}', 'ApiStorage', function (${DOLLAR}scope, ${DOLLAR}location, ${DOLLAR}routeParams, ${DOLLAR}rootScope, Api${beanClass.name}, ApiStorage) {
+	${DOLLAR}rootScope.logMe("${beanClass.name}ListCtrl");
+	var self = this;
+	
+	${DOLLAR}scope.${beanClass.name.toLowerCase()}s = Api${beanClass.name}.search();
+	${DOLLAR}rootScope.logMe("search end");
+
+	// new ${beanClass.name} call
+	${DOLLAR}scope.openCreate${beanClass.name}Page = function () {
+		${DOLLAR}rootScope.logMe("openCreate${beanClass.name}Page");
+		${DOLLAR}location.path("/${beanClass.name.toLowerCase()}/create");
+	};
+
+}]);
+
+
+bookStore${beanClass.name.toLowerCase()}.controller('${beanClass.name}DetailCtrl', ['${DOLLAR}scope', '${DOLLAR}location', '${DOLLAR}routeParams', '${DOLLAR}rootScope', 'Api${beanClass.name}', 'ApiStorage', function (${DOLLAR}scope, ${DOLLAR}location, ${DOLLAR}routeParams, ${DOLLAR}rootScope, Api${beanClass.name}, ApiStorage) {
+	${DOLLAR}rootScope.logMe("${beanClass.name}DetailCtrl");
+	${DOLLAR}scope.idCurrent = ${DOLLAR}routeParams.id;
+	
+	${DOLLAR}rootScope.logMe("get ${beanClass.name.toLowerCase()} ");
+	${DOLLAR}scope.one${beanClass.name.toLowerCase()} = Api${beanClass.name}.get(${DOLLAR}scope.idCurrent);
+	
+	if (${DOLLAR}scope.one${beanClass.name.toLowerCase()} === undefined) {
+		toastr.error("An error has occurred !");
+	}
+	
+	// ${beanClass.name} update
+	${DOLLAR}scope.update${beanClass.name} = function () {
+		${DOLLAR}rootScope.logMe("update${beanClass.name}");
+		if (Api${beanClass.name}.update(${DOLLAR}scope.idCurrent, ${DOLLAR}scope.one${beanClass.name.toLowerCase()})) {
+			toastr.success("The ${beanClass.name.toLowerCase()} has been successfully updated");
+		} else {
+			toastr.error("An error has occurred !");
+		}
+	};
+
+	// ${beanClass.name} remove
+	${DOLLAR}scope.remove${beanClass.name} = function () {
+		${DOLLAR}rootScope.logMe("remove${beanClass.name}");
+		if (Api${beanClass.name}.remove(${DOLLAR}scope.idCurrent)) {
+			toastr.success("The ${beanClass.name.toLowerCase()} has been successfully removed");
+			${DOLLAR}location.path("/${beanClass.name.toLowerCase()}");
+		} else {
+			toastr.error("An error has occurred !");
+		}
+	};
+
+	// Return to list
+	${DOLLAR}scope.openList${beanClass.name}Page = function () {
+		${DOLLAR}rootScope.logMe("openList${beanClass.name}Page");
+		${DOLLAR}location.path("/${beanClass.name.toLowerCase()}");
+	};
+
+}]);
+
+bookStore${beanClass.name.toLowerCase()}.controller('${beanClass.name}CreateCtrl', ['${DOLLAR}scope', '${DOLLAR}location', '${DOLLAR}routeParams', '${DOLLAR}rootScope', 'Api${beanClass.name}', function (${DOLLAR}scope, ${DOLLAR}location, ${DOLLAR}routeParams, ${DOLLAR}rootScope, Api${beanClass.name}) {
+	${DOLLAR}rootScope.logMe("${beanClass.name}CreateCtrl");
+	${DOLLAR}scope.one${beanClass.name.toLowerCase()} = {};
+	
+	// ${beanClass.name} save
+	${DOLLAR}scope.save${beanClass.name} = function () {
+		${DOLLAR}rootScope.logMe("save${beanClass.name}");
+		if (Api${beanClass.name}.create(${DOLLAR}scope.one${beanClass.name.toLowerCase()})) {
+			toastr.success("The ${beanClass.name.toLowerCase()} has been successfully created");
+			${DOLLAR}location.path("/${beanClass.name.toLowerCase()}");
+		} else {
+			toastr.error("An error has occurred !");
+		}
+	};
+
+	// Return to list
+	${DOLLAR}scope.openList${beanClass.name}Page = function () {
+		${DOLLAR}rootScope.logMe("openList${beanClass.name}Page");
+		${DOLLAR}location.path("/${beanClass.name.toLowerCase()}");
+	};
+
+}]);
